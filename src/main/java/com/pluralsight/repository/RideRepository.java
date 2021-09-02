@@ -6,6 +6,18 @@ import com.pluralsight.model.Ride;
 
 public interface RideRepository {
 
-	List<Ride> getRides();
+    //region READ
+    Ride getRide(Integer id);
 
+    List<Ride> getRides();
+
+    Ride createRide(Ride ride);
+
+    Ride updateRide(Ride ride);
+
+    void batchUpdateRides(List<Object[]> pairs);
+
+    void deleteRide(Integer id);
+
+    void batchCreateRides(List<Object[]> entries);
 }
