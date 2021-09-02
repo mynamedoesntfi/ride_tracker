@@ -12,13 +12,13 @@ import com.pluralsight.model.Ride;
 import com.pluralsight.service.RideService;
 
 @Controller
-@RequestMapping(value = "ride_tracker/")
+@RequestMapping(value = "ride_tracker")
 public class RideController {
 
 	@Autowired
 	private RideService rideService;
 	
-	@RequestMapping(value = "/rides", method = RequestMethod.GET)
+	@RequestMapping(value = "rides", method = RequestMethod.GET)
 	public @ResponseBody List<Ride> getRides() {
 		return rideService.getRides();
 	}
