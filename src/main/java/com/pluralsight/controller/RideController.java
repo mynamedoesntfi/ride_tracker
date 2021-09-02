@@ -15,15 +15,27 @@ public class RideController {
 
 	@Autowired
 	private RideService rideService;
-	
-	@RequestMapping(value = "rides", method = RequestMethod.GET)
+
+
+	//region CREATE
+	@PostMapping
+	@RequestMapping(value = "createRide")
+	public @ResponseBody Ride createRide(@RequestBody Ride ride)	{
+		return rideService.createRide(ride);
+	}
+	//endregion
+
+	//region READ
+	@RequestMapping(value = "getAllRides", method = RequestMethod.GET)
 	public @ResponseBody List<Ride> getRides() {
 		return rideService.getRides();
 	}
 
-	@PutMapping
-	@RequestMapping(value = "ride")
-	public @ResponseBody Ride createRide(@RequestBody Ride ride)	{
-		return rideService.createRide(ride);
+	@GetMapping
+	@RequestMapping(value = "getRide/{id}")
+	public @ResponseBody Ride getRide(@PathVariable(value = "id") Integer id) {
+		return rideService.getRide(id);
 	}
+	//endregion
+
 }
