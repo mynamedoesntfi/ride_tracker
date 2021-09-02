@@ -12,4 +12,8 @@ public interface RideRepository {
     List<Ride> getRides();
 
     Ride createRide(Ride ride);
+
+    Ride updateRide(Ride ride);
+
+    void batchUpdateRides(List<Object[]> pairs);
 }

@@ -1,5 +1,7 @@
 package com.pluralsight.model;
 
+import java.util.Date;
+
 public class Ride {
 
 	private int id;

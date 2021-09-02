@@ -1,5 +1,7 @@
 package com.pluralsight.service;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.pluralsight.repository.util.RideRowMapper;
@@ -32,5 +34,26 @@ public class RideServiceImpl implements RideService {
 	public Ride getRide(Integer id)	{
 		return rideRepository.getRide(id);
 	}
+	//endregion
+
+	//region UPDATE
+	@Override
+	public Ride updateRide(Ride ride) {
+		return rideRepository.updateRide(ride);
+	}
+
+	@Override
+	public void batchUpdateRides() {
+		List<Ride> rides = rideRepository.getRides();
+
+		List<Object[]> pairs = new ArrayList<>();
+		for(Ride ride : rides)	{
+			Object [] pair = { new Date(), ride.getId()};
+			pairs.add(pair);
+		}
+
+		rideRepository.batchUpdateRides(pairs);
+	}
+
 	//endregion
 }

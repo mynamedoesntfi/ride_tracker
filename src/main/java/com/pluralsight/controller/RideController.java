@@ -38,4 +38,18 @@ public class RideController {
 	}
 	//endregion
 
+	//region UPDATE
+	@PutMapping
+	@RequestMapping(value = "updateRide")
+	public @ResponseBody Ride updateRide(@RequestBody Ride ride) {
+		return rideService.updateRide(ride);
+	}
+
+	@GetMapping
+	@RequestMapping(value = "batchUpdateRides")
+	public @ResponseBody Object batchUpdateRide() {
+		rideService.batchUpdateRides();
+		return null;
+	}
+	//endregion
 }

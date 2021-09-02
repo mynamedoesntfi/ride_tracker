@@ -57,4 +57,21 @@ public class RideRepositoryImpl implements RideRepository {
 		return rides;
 	}
 	//endregion
+
+	//region UPDATE
+	@Override
+	public Ride updateRide(Ride ride) {
+		jdbcTemplate.update("update ride set name = ?, duration = ? where id = ?",
+				ride.getName(),
+				ride.getDuration(),
+				ride.getId());
+		return ride;
+	}
+
+	@Override
+	public void batchUpdateRides(List<Object[]> pairs) {
+		jdbcTemplate.batchUpdate("update ride set ride_date = ? where id = ?",  pairs);
+	}
+
+	//endregion
 }
