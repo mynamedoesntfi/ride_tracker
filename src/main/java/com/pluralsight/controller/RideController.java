@@ -12,6 +12,7 @@ import com.pluralsight.model.Ride;
 import com.pluralsight.service.RideService;
 
 @Controller
+@RequestMapping(value = "ride_tracker/")
 public class RideController {
 
 	@Autowired
