@@ -23,6 +23,13 @@ public class RideController {
 	public @ResponseBody Ride createRide(@RequestBody Ride ride)	{
 		return rideService.createRide(ride);
 	}
+
+	@PutMapping
+	@RequestMapping(value = "batchCreateRides/{numberOfRides}")
+	public @ResponseBody Object batchCreateRides(@PathVariable(value = "numberOfRides") Integer numberOfRides) {
+		rideService.batchCreateRides(numberOfRides);
+		return null;
+	}
 	//endregion
 
 	//region READ
@@ -49,6 +56,15 @@ public class RideController {
 	@RequestMapping(value = "batchUpdateRides")
 	public @ResponseBody Object batchUpdateRide() {
 		rideService.batchUpdateRides();
+		return null;
+	}
+	//endregion
+
+	//region DELETE
+	@DeleteMapping
+	@RequestMapping(value = "deleteRide/{id}")
+	public @ResponseBody Object deleteRide(@PathVariable(value = "id") Integer id) {
+		rideService.deleteRide(id);
 		return null;
 	}
 	//endregion

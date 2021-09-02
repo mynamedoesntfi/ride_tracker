@@ -3,18 +3,15 @@ package com.pluralsight.repository;
 import com.pluralsight.model.Ride;
 import com.pluralsight.repository.util.RideRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementCreator;
-import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.*;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository("rideRepository")
@@ -40,21 +37,42 @@ public class RideRepositoryImpl implements RideRepository {
 		}, keyHolder);
 		Number id = keyHolder.getKey();
 
+		assert id != null;
 		return getRide(id.intValue());
 	}
+
+	@Override
+	public void batchCreateRides(List<Object[]> entries) {
+//		jdbcTemplate.batchUpdate("insert into ride (name, duration, ride_date) values(?, ?, ?)", new BatchPreparedStatementSetter() {
+//			@Override
+//			public void setValues(PreparedStatement preparedStatement, int i) throws SQLException {
+//				Object[] entry = entries.get(i);
+//				preparedStatement.setString(1, entry[0].toString());
+//				preparedStatement.setString(2, entry[1].toString());
+//				preparedStatement.setDate(3, new Date(Long.parseLong(entry[2].toString())));
+//			}
+//
+//			@Override
+//			public int getBatchSize() {
+//				return entries.size();
+//			}
+//		});
+		return;
+	}
+
 	//endregion
 
 	//region READ
 	@Override
 	public Ride getRide(Integer id)	{
-		Ride ride = jdbcTemplate.queryForObject("select * from ride where id = ?", new RideRowMapper(), id);
-		return ride;
+		return jdbcTemplate.queryForObject("select * from ride where id = ?",
+				new RideRowMapper(),
+				id);
 	}
 
 	@Override
 	public List<Ride> getRides() {
-		List <Ride> rides = jdbcTemplate.query("select * from ride", new RideRowMapper());
-		return rides;
+		return jdbcTemplate.query("select * from ride", new RideRowMapper());
 	}
 	//endregion
 
@@ -73,5 +91,12 @@ public class RideRepositoryImpl implements RideRepository {
 		jdbcTemplate.batchUpdate("update ride set ride_date = ? where id = ?",  pairs);
 	}
 
+	//endregion
+
+	//region DELETE
+	@Override
+	public void deleteRide(Integer id) {
+		jdbcTemplate.update("delete from ride where id = ?", id);
+	}
 	//endregion
 }

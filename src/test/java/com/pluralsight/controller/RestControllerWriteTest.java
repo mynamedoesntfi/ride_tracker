@@ -13,6 +13,7 @@ import org.junit.Test;
 
 public class RestControllerWriteTest {
 
+    //region CREATE
     @Test(timeout=3000)
     public void testCreateRide() 	{
         RestTemplate restTemplate = new RestTemplate();
@@ -27,6 +28,17 @@ public class RestControllerWriteTest {
     }
 
     @Test(timeout=3000)
+    public void testBatchCreateRides() {
+        RestTemplate restTemplate = new RestTemplate();
+
+        //TODO changeable id
+        int numberOfRides = 5;
+        restTemplate.put("http://localhost:8080/ride_tracker/batchCreateRides/" + numberOfRides, Ride.class);
+    }
+    //endregion
+
+    //region UPDATE
+    @Test(timeout=3000)
     public void testUpdateRide() {
         RestTemplate restTemplate = new RestTemplate();
 
@@ -35,6 +47,7 @@ public class RestControllerWriteTest {
 
         Ride ride = restTemplate.getForObject("http://localhost:8080/ride_tracker/getRide/" + id, Ride.class);
 
+        assert ride != null;
         ride.setDuration(ride.getDuration() + 1);
 
         restTemplate.put("http://localhost:8080/ride_tracker/updateRide/", ride);
@@ -43,9 +56,21 @@ public class RestControllerWriteTest {
     }
 
     @Test(timeout=3000)
-    public void testBatchUpdateRide() {
+    public void testBatchUpdateRides() {
         RestTemplate restTemplate = new RestTemplate();
 
         restTemplate.getForObject("http://localhost:8080/ride_tracker/batchUpdateRides/", Ride.class);
     }
+    //endregion
+
+    //region DELETE
+    @Test(timeout=3000)
+    public void testDeleteRide() {
+        RestTemplate restTemplate = new RestTemplate();
+
+        //TODO changeable id
+        int id = 9;
+        restTemplate.delete("http://localhost:8080/ride_tracker/deleteRide/" + id);
+    }
+    //endregion
 }

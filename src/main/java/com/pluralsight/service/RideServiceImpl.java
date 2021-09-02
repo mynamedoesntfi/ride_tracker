@@ -22,6 +22,24 @@ public class RideServiceImpl implements RideService {
 	public Ride createRide(Ride ride) {
 		return rideRepository.createRide(ride);
 	}
+
+	@Override
+	public void batchCreateRides(Integer numberOfRides) {
+		List<Ride> rides = new ArrayList<>();
+		for(int i=0;i<numberOfRides;i++) {
+			Ride ride = new Ride();
+			ride.setName("RideName" + (i+ 1));
+			ride.setDuration(30 + i);
+		}
+
+		List<Object[]> entries = new ArrayList<>();
+		for(Ride ride : rides)	{
+			Object [] entry = { ride.getName(), ride.getDuration(), new Date()};
+			entries.add(entry);
+		}
+		rideRepository.batchCreateRides(entries);
+	}
+
 	//endregion
 
 	//region READ
@@ -45,15 +63,19 @@ public class RideServiceImpl implements RideService {
 	@Override
 	public void batchUpdateRides() {
 		List<Ride> rides = rideRepository.getRides();
-
 		List<Object[]> pairs = new ArrayList<>();
 		for(Ride ride : rides)	{
 			Object [] pair = { new Date(), ride.getId()};
 			pairs.add(pair);
 		}
-
 		rideRepository.batchUpdateRides(pairs);
 	}
+	//endregion
 
+	//region DELETE
+	@Override
+	public void deleteRide(Integer id) {
+		rideRepository.deleteRide(id);
+	}
 	//endregion
 }

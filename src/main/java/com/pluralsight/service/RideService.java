@@ -15,4 +15,8 @@ public interface RideService {
     Ride updateRide(Ride ride);
 
     void batchUpdateRides();
+
+    void deleteRide(Integer id);
+
+    void batchCreateRides(Integer numberOfRides);
 }
