@@ -16,7 +16,6 @@ public class RideController {
 	@Autowired
 	private RideService rideService;
 
-
 	//region CREATE
 	@PostMapping
 	@RequestMapping(value = "createRide")

@@ -1,21 +1,21 @@
 package com.pluralsight.service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import com.pluralsight.repository.util.RideRowMapper;
+import com.pluralsight.model.Ride;
+import com.pluralsight.repository.RideRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.pluralsight.model.Ride;
-import com.pluralsight.repository.RideRepository;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Service("rideService")
 public class RideServiceImpl implements RideService {
 
 	@Autowired
 	private RideRepository rideRepository;
+
+	//region DATABASE
 
 	//region CREATE
 	@Override
@@ -77,5 +77,7 @@ public class RideServiceImpl implements RideService {
 	public void deleteRide(Integer id) {
 		rideRepository.deleteRide(id);
 	}
+	//endregion
+
 	//endregion
 }
